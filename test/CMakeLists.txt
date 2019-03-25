@@ -7,13 +7,13 @@ include_directories( . .. ~/workspace/lib/c/test/minunit .. ../../../c/c_procs )
 #add test sources
 file( GLOB TEST_SOURCES *.c *.cpp )
 
-file( GLOB LIB_SOURCE_FILES ../httputils.cpp ../../../c/c_procs/procutils/procutils.c )
+file( GLOB LIB_SOURCE_FILES ../netutil/*.cpp ../../../c/c_procs/procutil/procutil.c )
 add_library( source_lib ${LIB_SOURCE_FILES} )
 
 #set enable testing
 enable_testing()
 link_libraries( ${LIBRARIES} )
-link_libraries( source_lib ) 
+link_libraries( source_lib )
 
 #adding tests foreach test source file
 foreach(filename ${TEST_SOURCES})

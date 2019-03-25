@@ -6,8 +6,8 @@
 
 #include "minunit.h"
 
-#include <procutils/procutils.h>
-#include <httputils.hpp>
+#include <procutil/procutil.h>
+#include <netutil/httputils.hpp>
 
 typedef std::unordered_map<std::string, std::string> header_map;
 typedef header_map::iterator header_map_it;
