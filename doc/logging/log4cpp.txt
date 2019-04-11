@@ -1,0 +1,50 @@
+#define LOG4CPP_FIX_ERROR_COLLISION 1
+
+#include "log4cpp/Category.hh"
+#include "log4cpp/Appender.hh"
+#include "log4cpp/FileAppender.hh"
+#include "log4cpp/OstreamAppender.hh"
+#include "log4cpp/Layout.hh"
+#include "log4cpp/PatternLayout.hh"
+#include "log4cpp/Priority.hh"
+
+#include "logutils/log4cpputils.hpp"
+
+log4cpp::Category *root_logger = NULL;
+
+int main( int argc, const char * const argv[] ) {
+    int ec = 0;
+    int foreground = 0;
+    const char *log_file = "test.log";
+
+    ..
+
+    root_logger = &log4cpp::Category::getRoot();
+    root_logger->setPriority(log_level);
+    if (foreground) {
+        log4cpp::PatternLayout *layout = new log4cpp::PatternLayout();
+        layout->setConversionPattern("%d [%p] %m%n");
+        log4cpp::Appender *appender = new log4cpp::OstreamAppender("console", &std::cout);
+        appender->setLayout(layout);
+        root_logger->addAppender(appender);
+    }
+    if (log_file != NULL) {
+        log4cpp::PatternLayout *layout = new log4cpp::PatternLayout();
+        layout->setConversionPattern("%d [%p] %m%n");
+        log4cpp::Appender *appender = new log4cpp::FileAppender("default", log_file);
+        appender->setLayout(layout);
+        root_logger->addAppender(appender);
+    }
+
+    ..
+
+    _LOG_ERROR(root_logger, "%s: %s", error_description, message);
+
+    _LOG_ERROR_ERRNO(root_logger, "%s: %s", errno, error_description);
+
+    ..
+
+EXIT:
+    log4cpp::Category::shutdown();
+    return ec;
+}
