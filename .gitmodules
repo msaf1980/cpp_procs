@@ -1,0 +1,3 @@
+[submodule "test/contrib/c_procs"]
+	path = test/contrib/c_procs
+	url = https://github.com/msaf1980/c_procs

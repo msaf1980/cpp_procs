@@ -6,8 +6,9 @@
 
 #include "minunit.h"
 
-#include <procutil/procutil.h>
-#include <netutil/httputils.hpp>
+#include <c_procs/strutils.h>
+
+#include <httputils/httputils.hpp>
 
 typedef std::unordered_map<std::string, std::string> header_map;
 typedef header_map::iterator header_map_it;
@@ -49,7 +50,7 @@ MU_TEST(test_header_get)
 	mu_assert(header["Param"] == "name=ferret&color=purple", "header parse failed, can't extract query param");
 
 	int n_arg;
-	char **arg = arg_parse(header["Param"].c_str(), &n_arg, '&');
+	char **arg = arg_split(header["Param"].c_str(), &n_arg, '&');
 	if ( n_arg == 2 )
 	{
 		mu_check( strcmp(arg[0], "name=ferret") == 0 );

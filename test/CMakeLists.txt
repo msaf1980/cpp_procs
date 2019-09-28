@@ -2,13 +2,17 @@
 cmake_minimum_required(VERSION 2.6)
 
 #include files including headers in the src
-include_directories( . .. ~/workspace/lib/c/test/minunit .. ../../../c/c_procs )
+include_directories( . .. ~/workspace/lib/c/test/minunit ../include contrib/c_procs/include )
 
 #add test sources
 file( GLOB TEST_SOURCES *.c *.cpp )
 
-file( GLOB LIB_SOURCE_FILES ../netutil/*.cpp ../../../c/c_procs/procutil/procutil.c )
+file( GLOB LIB_SOURCE_FILES ../src/httputils/*.cpp contrib/c_procs/src/strutils.c )
 add_library( source_lib ${LIB_SOURCE_FILES} )
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 #set enable testing
 enable_testing()
@@ -33,4 +37,3 @@ foreach(filename ${TEST_SOURCES})
 	#configure for testing
 	add_test( ${testname} ${testname} )
 endforeach(filename)
-
