@@ -1,4 +1,4 @@
-#include <spinning_barrier.hpp>
+#include <threads/spinning_barrier.hpp>
 
 SpinningBarrier::SpinningBarrier(unsigned int count)
     : count(count), isNotWaiting(false), waitCount(0) {}
